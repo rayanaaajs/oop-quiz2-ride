@@ -20,7 +20,11 @@ public class RideCalculator {
      * @return jumlah semua tarif, atau 0 bila daftar kosong
      */
     public static double totalFare(List<Ride> orders) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        double total = 0;
+        for (Ride order : orders) {
+            total += order.calculateFare();
+        }
+        return total;
     }
 
     /**
@@ -32,7 +36,13 @@ public class RideCalculator {
      * @return jumlah biaya asuransi perjalanan, atau 0 bila tidak ada yang punya
      */
     public static double totalInsurance(List<Ride> orders) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (Ride order : orders){
+            if (order instanceof Insurable){
+                Insurable insurableOrder = (Insurable) order;
+                return insurableOrder.insuranceFee();
+            }
+        }
+        return 0;
     }
 
     /**
@@ -44,7 +54,9 @@ public class RideCalculator {
      * @throws InvalidDistanceException bila jarak tidak valid
      */
     public static void validate(Ride order) throws InvalidDistanceException {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (order.getDistanceKm() <= 0 || order.getDistanceKm() > 50) {
+            throw new InvalidDistanceException("Invalid distance: " + order.getDistanceKm());
+        }
     }
 
     /**
@@ -54,6 +66,11 @@ public class RideCalculator {
      * @return true bila valid, false bila validate melempar InvalidDistanceException
      */
     public static boolean isAcceptable(Ride order) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        try {
+            validate(order);
+            return true;
+        } catch (InvalidDistanceException e) {
+            return false;
+        }
     }
 }
