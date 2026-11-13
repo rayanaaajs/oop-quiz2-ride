@@ -39,8 +39,8 @@ public class Passenger {
      * @param name nama baru
      */
     public void setName(String name) {
-        if (name != null & !name.isBlank()) {
-            this.name = name;
+    if (name != null && !name.isBlank()) {
+        this.name = name;
         }
     }
 }
