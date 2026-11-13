@@ -36,13 +36,14 @@ public class RideCalculator {
      * @return jumlah biaya asuransi perjalanan, atau 0 bila tidak ada yang punya
      */
     public static double totalInsurance(List<Ride> orders) {
+        double total = 0;
         for (Ride ride : orders){
             if (ride instanceof Insurable){
                 Insurable insurableOrder = (Insurable) ride;
-                return insurableOrder.insuranceFee();
+                total += insurableOrder.insuranceFee();
             }
         }
-        return 0;
+        return total;
     }
 
     /**
